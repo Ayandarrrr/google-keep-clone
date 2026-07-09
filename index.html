@@ -15,7 +15,60 @@
     <link rel="stylesheet" href="style.css">
 
    
-    <link rel="icon" href="./Assets/Logo.png">
+    <link rel="icon" href="resources/Logo.png" type="image/png">
 </head>
 
 <body>
+
+  <header class="topbar">
+
+    <div class="topbar__left">
+
+        <button class="icon-btn" id="menuToggle">
+            <img src="resources/menu.svg" alt="Menu">
+        </button>
+
+        <span class="topbar__logo">
+            <img src="resources/Logo.png" alt="Google Keep Logo">
+        </span>
+
+        <h1 class="topbar__title">
+            Keep
+        </h1>
+
+    </div>
+
+    <div class="topbar__search">
+
+        <img src="resources/search.svg" alt="Search">
+
+        <input
+            type="search"
+            id="searchInput"
+            placeholder="Search">
+
+    </div>
+
+    <div class="topbar__right">
+
+        <button class="icon-btn" id="refreshBtn">
+            <img src="resources/refresh.svg" alt="Refresh">
+        </button>
+
+        <button class="icon-btn" id="viewToggleBtn">
+            <img src="resources/listView.svg" alt="List View">
+        </button>
+
+        <button class="icon-btn">
+            <img src="resources/settings.svg" alt="Settings">
+        </button>
+
+        <button class="icon-btn">
+            <img src="resources/googleApps.svg" alt="Google Apps">
+        </button>
+
+        <span class="topbar__avatar"></span>
+
+    </div>
+
+</header>  

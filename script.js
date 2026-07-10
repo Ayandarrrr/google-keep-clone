@@ -48,3 +48,28 @@ function init() {
 }
 
 init();
+
+
+
+function loadNotes() {
+
+    const savedNotes = localStorage.getItem(STORAGE_KEY);
+
+    if (savedNotes) {
+
+        notes = JSON.parse(savedNotes);
+
+    }
+
+}
+
+
+
+function saveNotes() {
+
+    localStorage.setItem(
+        STORAGE_KEY,
+        JSON.stringify(notes)
+    );
+
+}

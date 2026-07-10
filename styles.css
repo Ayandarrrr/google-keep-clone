@@ -1041,4 +1041,93 @@ img{
 
     }
 
+
+}
+
+
+
+.color-popover{
+
+    margin-top:12px;
+
+    padding:12px;
+
+    border:1px solid var(--border);
+
+    border-radius:10px;
+
+    background:white;
+
+    box-shadow:var(--shadow-card);
+
+}
+
+.composer__colors{
+
+    display:flex;
+
+    flex-wrap:wrap;
+
+    gap:10px;
+
+}
+
+.color-circle{
+
+    width:28px;
+
+    height:28px;
+
+    border-radius:50%;
+
+    border:1px solid #dcdcdc;
+
+    cursor:pointer;
+
+    transition:.2s;
+
+}
+
+.color-circle:hover{
+
+    transform:scale(1.15);
+
+}
+
+
+
+.color-circle[data-color="default"]{
+    background:#ffffff;
+}
+
+.color-circle[data-color="coral"]{
+    background:#f28b82;
+}
+
+.color-circle[data-color="sand"]{
+    background:#fdd663;
+}
+
+.color-circle[data-color="mint"]{
+    background:#ccff90;
+}
+
+.color-circle[data-color="sage"]{
+    background:#a7ffeb;
+}
+
+.color-circle[data-color="storm"]{
+    background:#cbf0f8;
+}
+
+.color-circle[data-color="dusk"]{
+    background:#d7aefb;
+}
+
+.color-circle[data-color="blossom"]{
+    background:#fdcfe8;
+}
+
+.color-circle[data-color="clay"]{
+    background:#e6c9a8;
 }

@@ -109,70 +109,71 @@
     <main class="board" id="board">
         <section class="composer" id="composer">
 
-    <form id="composerForm" class="composer__form" data-color="default">
 
-        <input
-            type="text"
-            id="composerTitle"
-            class="composer__title"
-            placeholder="Title">
+<form id="composerForm" class="composer__form" data-color="default">
 
-        <textarea
-            id="composerBody"
-            class="composer__body"
-            placeholder="Take a note..."
-            rows="1">
-        </textarea>
+    <input
+        type="text"
+        id="composerTitle"
+        class="composer__title"
+        placeholder="Title">
 
-        <div class="composer__toolbar">
+    <textarea
+        id="composerBody"
+        class="composer__body"
+        placeholder="Take a note..."
+        rows="1">
+    </textarea>
 
-            <div class="composer__quick-actions">
+    <div class="composer__toolbar">
 
-                <button type="button" class="icon-btn">
-                    <img src="resources/?" alt="Checklist">
-                </button>
+        <div class="composer__quick-actions">
 
-                <button
-                    type="button"
-                    class="icon-btn"
-                    id="composerColorBtn">
-                    <img src="resources/palette.svg" alt="Color">
-                </button>
-
-                <button type="button" class="icon-btn">
-                    <img src="resources/image.svg" alt="Image">
-                </button>
-
-                <div
-                    class="color-popover"
-                    id="composerColorPopover"
-                    hidden>
-
-                    <div
-                        class="composer__colors"
-                        id="composerColors">
-                    </div>
-
-                </div>
-
-            </div>
-
-            <div class="composer__actions">
-
-                <button
-                    type="button"
-                    class="btn btn--text"
-                    id="composerCloseBtn">
-
-                    Close
-
-                </button>
-
-            </div>
+            <button
+                type="button"
+                class="icon-btn"
+                id="composerColorBtn"
+                title="Background color">
+                🎨
+            </button>
 
         </div>
 
-    </form>
+        <div class="composer__actions">
+
+            <button
+                type="button"
+                class="btn btn--text"
+                id="composerCloseBtn">
+                Close
+            </button>
+
+        </div>
+
+    </div>
+
+    <div
+        class="color-popover"
+        id="composerColorPopover"
+        hidden>
+
+        <div class="composer__colors">
+
+            <button class="color-circle" data-color="default"></button>
+            <button class="color-circle" data-color="coral"></button>
+            <button class="color-circle" data-color="sand"></button>
+            <button class="color-circle" data-color="mint"></button>
+            <button class="color-circle" data-color="sage"></button>
+            <button class="color-circle" data-color="storm"></button>
+            <button class="color-circle" data-color="dusk"></button>
+            <button class="color-circle" data-color="blossom"></button>
+            <button class="color-circle" data-color="clay"></button>
+
+        </div>
+
+    </div>
+
+</form>
 
 </section>
 <div class="empty-state" id="emptyState" hidden>

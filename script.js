@@ -73,3 +73,9 @@ function saveNotes() {
     );
 
 }
+
+function renderNotes() {
+
+    console.log("Notes:", notes);
+
+}

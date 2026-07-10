@@ -129,7 +129,7 @@
             <div class="composer__quick-actions">
 
                 <button type="button" class="icon-btn">
-                    <img src="resources/checklist.svg" alt="Checklist">
+                    <img src="resources/?" alt="Checklist">
                 </button>
 
                 <button
@@ -175,3 +175,149 @@
     </form>
 
 </section>
+<div class="empty-state" id="emptyState" hidden>
+
+    <img src="resources/notes2.svg" alt="">
+
+    <p id="emptyStateText"></p>
+
+</div>
+<section
+    class="notes-grid"
+    id="notesGrid">
+</section>
+
+</main>
+
+</div>
+
+
+<template id="noteCardTemplate">
+    <article class="note-card" tabindex="0">
+
+        <h3 class="note-card__title"></h3>
+
+        <p class="note-card__body"></p>
+
+        <div class="note-card__footer">
+
+            <time class="note-card__date"></time>
+
+            <div class="note-card__actions">
+
+                <button class="icon-btn note-card__archive">
+                    <svg viewBox="0 0 24 24" width="18" height="18">
+                        <path d="M3 6h18v3H3zM5 9v11h14V9M10 13h4"
+                              stroke="currentColor"
+                              stroke-width="1.6"
+                              fill="none"
+                              stroke-linejoin="round"/>
+                    </svg>
+                </button>
+
+                <button class="icon-btn note-card__unarchive" hidden>
+                    <svg viewBox="0 0 24 24" width="18" height="18">
+                        <path d="M12 20V9M6 14l6-6 6 6"
+                              stroke="currentColor"
+                              stroke-width="1.8"
+                              fill="none"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"/>
+                    </svg>
+                </button>
+
+                <button class="icon-btn note-card__delete">
+                    <svg viewBox="0 0 24 24" width="18" height="18">
+                        <path d="M4 7h16M9 7V5a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2m-9 0 1 13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1l1-13"
+                              stroke="currentColor"
+                              stroke-width="1.6"
+                              fill="none"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"/>
+                    </svg>
+                </button>
+
+            </div>
+
+        </div>
+
+    </article>
+</template>
+
+
+<div class="modal-overlay" id="modalOverlay" hidden>
+
+    <div class="modal">
+
+        <input
+            type="text"
+            id="modalTitle"
+            class="modal__title"
+            placeholder="Title">
+
+        <textarea
+            id="modalBody"
+            class="modal__body"
+            placeholder="Take a note...">
+        </textarea>
+
+        <div class="modal__toolbar">
+            <div class="modal__meta" id="modalMeta"></div>
+        </div>
+
+        <div class="modal__footer">
+
+            <button class="icon-btn" id="modalArchiveBtn">
+                Archive
+            </button>
+
+            <button class="icon-btn" id="modalColorBtn">
+                Color
+            </button>
+
+            <button class="icon-btn" id="modalDeleteBtn">
+                Delete
+            </button>
+
+            <div
+                class="color-popover color-popover--modal"
+                id="modalColorPopover"
+                hidden>
+
+                <div
+                    class="composer__colors"
+                    id="modalColors">
+                </div>
+
+            </div>
+
+            <button
+                class="btn btn--text"
+                id="modalCloseBtn">
+
+                Close
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<div class="toast" id="toast" hidden>
+
+    <span id="toastMessage"></span>
+
+    <button
+        class="toast__action"
+        id="toastActionBtn">
+    </button>
+
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>

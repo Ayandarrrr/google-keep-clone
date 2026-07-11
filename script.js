@@ -1,8 +1,3 @@
-// ================================
-// Google Keep Clone
-// Part 1
-// ================================
-
 const composer = document.getElementById("composer");
 const composerTitle = document.getElementById("composerTitle");
 const composerBody = document.getElementById("composerBody");
@@ -29,9 +24,7 @@ let notes = [];
 let currentFilter = "notes";
 let editingNote = null;
 
-// ================================
-// Local Storage
-// ================================
+
 
 function loadNotes() {
     const saved = localStorage.getItem(STORAGE_KEY);
@@ -45,9 +38,7 @@ function saveNotes() {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(notes));
 }
 
-// ================================
-// Create Note
-// ================================
+
 
 function createNote(title, body) {
 
@@ -67,9 +58,7 @@ function createNote(title, body) {
 
 }
 
-// ================================
-// Render Notes
-// ================================
+
 
 function renderNotes() {
 
@@ -147,12 +136,12 @@ clone.querySelector(".note-card").addEventListener("click", () => {
     openModal(note);
 });
 
+    });
+
+}
 
 
 
-// ================================
-// Archive / Unarchive
-// ================================
 
 function archiveNote(id) {
 
@@ -182,9 +171,7 @@ function unarchiveNote(id) {
 
 }
 
-// ================================
-// Delete Note
-// ================================
+
 
 function deleteNote(id) {
 
@@ -228,9 +215,7 @@ function saveModalChanges() {
 
 }
 
-// ================================
-// Open Composer
-// ================================
+
 
 composerBody.addEventListener("focus", () => {
 
@@ -238,9 +223,7 @@ composerBody.addEventListener("focus", () => {
 
 });
 
-// ================================
-// Save Note
-// ================================
+
 
 composerCloseBtn.addEventListener("click", () => {
 
@@ -266,9 +249,7 @@ composerCloseBtn.addEventListener("click", () => {
 
 });
 
-// ================================
-// Search
-// ================================
+
 
 searchInput.addEventListener("input", () => {
 
@@ -276,9 +257,6 @@ searchInput.addEventListener("input", () => {
 
 });
 
-// ================================
-// Sidebar
-// ================================
 
 document.querySelectorAll(".sidebar__item").forEach(button => {
 
@@ -305,3 +283,23 @@ document.querySelectorAll(".sidebar__item").forEach(button => {
 modalCloseBtn.addEventListener("click", () => {
     saveModalChanges();
 });
+
+function createNote(title, body) {
+
+    const note = {
+
+        id: crypto.randomUUID(),
+        title,
+        body,
+        archived: false,
+        createdAt: Date.now()
+
+    };
+
+    notes.unshift(note);
+
+    saveNotes();
+
+    renderNotes();
+
+}

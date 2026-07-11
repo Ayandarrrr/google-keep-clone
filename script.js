@@ -1,3 +1,8 @@
+// ================================
+// Google Keep Clone
+// Part 1
+// ================================
+
 const composer = document.getElementById("composer");
 const composerTitle = document.getElementById("composerTitle");
 const composerBody = document.getElementById("composerBody");
@@ -7,27 +12,18 @@ const notesGrid = document.getElementById("notesGrid");
 const emptyState = document.getElementById("emptyState");
 const emptyStateText = document.getElementById("emptyStateText");
 
+const searchInput = document.getElementById("searchInput");
+
 const noteTemplate = document.getElementById("noteCardTemplate");
+
+const STORAGE_KEY = "google-keep-clone";
 
 let notes = [];
 let currentFilter = "notes";
 
-const STORAGE_KEY = "google-keep-clone";
-
-/* --------------------------
-   INITIALIZE
--------------------------- */
-
-function init() {
-    loadNotes();
-    renderNotes();
-}
-
-init();
-
-/* --------------------------
-   LOCAL STORAGE
--------------------------- */
+// ================================
+// Local Storage
+// ================================
 
 function loadNotes() {
     const saved = localStorage.getItem(STORAGE_KEY);
@@ -41,9 +37,9 @@ function saveNotes() {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(notes));
 }
 
-/* --------------------------
-   CREATE NOTE
--------------------------- */
+// ================================
+// Create Note
+// ================================
 
 function createNote(title, body) {
 
@@ -51,9 +47,8 @@ function createNote(title, body) {
         id: crypto.randomUUID(),
         title,
         body,
-        createdAt: Date.now(),
         archived: false,
-        color: "default"
+        createdAt: Date.now()
     };
 
     notes.unshift(note);
@@ -61,21 +56,33 @@ function createNote(title, body) {
     saveNotes();
 
     renderNotes();
+
 }
 
-/* --------------------------
-   RENDER NOTES
--------------------------- */
+// ================================
+// Render Notes
+// ================================
 
 function renderNotes() {
 
     notesGrid.innerHTML = "";
 
-    const filteredNotes = notes.filter(note =>
-        note.archived === (currentFilter === "archive")
-    );
+    const search = searchInput.value.toLowerCase();
 
-    if (filteredNotes.length === 0) {
+    const filtered = notes.filter(note => {
+
+        const view =
+            note.archived === (currentFilter === "archive");
+
+        const matches =
+            note.title.toLowerCase().includes(search) ||
+            note.body.toLowerCase().includes(search);
+
+        return view && matches;
+
+    });
+
+    if (filtered.length === 0) {
 
         emptyState.hidden = false;
 
@@ -89,48 +96,50 @@ function renderNotes() {
 
     emptyState.hidden = true;
 
-    filteredNotes.forEach(note => {
+    filtered.forEach(note => {
 
-        const noteElement = noteTemplate.content.cloneNode(true);
+        const clone = noteTemplate.content.cloneNode(true);
 
-        noteElement.querySelector(".note-card__title").textContent = note.title;
+        clone.querySelector(".note-card__title").textContent =
+            note.title;
 
-        noteElement.querySelector(".note-card__body").textContent = note.body;
+        clone.querySelector(".note-card__body").textContent =
+            note.body;
 
-        noteElement.querySelector(".note-card__date").textContent =
+        clone.querySelector(".note-card__date").textContent =
             new Date(note.createdAt).toLocaleDateString();
 
-        const archiveBtn =
-            noteElement.querySelector(".note-card__archive");
+        const archiveBtn = clone.querySelector(".note-card__archive");
+const unarchiveBtn = clone.querySelector(".note-card__unarchive");
+const deleteBtn = clone.querySelector(".note-card__delete");
 
-        const unarchiveBtn =
-            noteElement.querySelector(".note-card__unarchive");
+if (note.archived) {
+    archiveBtn.hidden = true;
+    unarchiveBtn.hidden = false;
+}
 
-        if (note.archived) {
-            archiveBtn.hidden = true;
-            unarchiveBtn.hidden = false;
-        } else {
-            archiveBtn.hidden = false;
-            unarchiveBtn.hidden = true;
-        }
+archiveBtn.addEventListener("click", (e) => {
+    e.stopPropagation();
+    archiveNote(note.id);
+});
 
-        archiveBtn.addEventListener("click", () => {
-            archiveNote(note.id);
-        });
+unarchiveBtn.addEventListener("click", (e) => {
+    e.stopPropagation();
+    unarchiveNote(note.id);
+});
 
-        unarchiveBtn.addEventListener("click", () => {
-            unarchiveNote(note.id);
-        });
+deleteBtn.addEventListener("click", (e) => {
+    e.stopPropagation();
+    deleteNote(note.id);
+});
 
-        notesGrid.appendChild(noteElement);
-
-    });
+notesGrid.appendChild(clone);
 
 }
 
-/* --------------------------
-   ARCHIVE
--------------------------- */
+// ================================
+// Archive / Unarchive
+// ================================
 
 function archiveNote(id) {
 
@@ -160,36 +169,71 @@ function unarchiveNote(id) {
 
 }
 
-/* --------------------------
-   COMPOSER
--------------------------- */
+// ================================
+// Delete Note
+// ================================
+
+function deleteNote(id) {
+
+    notes = notes.filter(note => note.id !== id);
+
+    saveNotes();
+
+    renderNotes();
+
+}
+
+// ================================
+// Open Composer
+// ================================
 
 composerBody.addEventListener("focus", () => {
+
     composer.classList.add("is-open");
+
 });
+
+// ================================
+// Save Note
+// ================================
 
 composerCloseBtn.addEventListener("click", () => {
 
     const title = composerTitle.value.trim();
+
     const body = composerBody.value.trim();
 
     if (!title && !body) {
+
         composer.classList.remove("is-open");
+
         return;
+
     }
 
     createNote(title, body);
 
     composerTitle.value = "";
+
     composerBody.value = "";
 
     composer.classList.remove("is-open");
 
 });
 
-/* --------------------------
-   SIDEBAR
--------------------------- */
+// ================================
+// Search
+// ================================
+
+searchInput.addEventListener("input", () => {
+
+    renderNotes();
+
+});
+
+// ================================
+// Sidebar
+// ================================
 
 document.querySelectorAll(".sidebar__item").forEach(button => {
 
@@ -200,7 +244,9 @@ document.querySelectorAll(".sidebar__item").forEach(button => {
         currentFilter = button.dataset.view;
 
         document.querySelectorAll(".sidebar__item").forEach(item => {
+
             item.classList.remove("is-active");
+
         });
 
         button.classList.add("is-active");

@@ -12,14 +12,22 @@ const notesGrid = document.getElementById("notesGrid");
 const emptyState = document.getElementById("emptyState");
 const emptyStateText = document.getElementById("emptyStateText");
 
+const modalOverlay = document.getElementById("modalOverlay");
+const modalTitle = document.getElementById("modalTitle");
+const modalBody = document.getElementById("modalBody");
+const modalCloseBtn = document.getElementById("modalCloseBtn");
+
 const searchInput = document.getElementById("searchInput");
 
 const noteTemplate = document.getElementById("noteCardTemplate");
 
 const STORAGE_KEY = "google-keep-clone";
 
+
+
 let notes = [];
 let currentFilter = "notes";
+let editingNote = null;
 
 // ================================
 // Local Storage
@@ -135,7 +143,12 @@ deleteBtn.addEventListener("click", (e) => {
 
 notesGrid.appendChild(clone);
 
-}
+clone.querySelector(".note-card").addEventListener("click", () => {
+    openModal(note);
+});
+
+
+
 
 // ================================
 // Archive / Unarchive
@@ -180,6 +193,38 @@ function deleteNote(id) {
     saveNotes();
 
     renderNotes();
+
+}
+function openModal(note) {
+
+    editingNote = note;
+
+    modalTitle.value = note.title;
+    modalBody.value = note.body;
+
+    modalOverlay.hidden = false;
+
+}
+
+function closeModal() {
+
+    modalOverlay.hidden = true;
+
+    editingNote = null;
+
+}
+
+function saveModalChanges() {
+
+    if (!editingNote) return;
+
+    editingNote.title = modalTitle.value.trim();
+    editingNote.body = modalBody.value.trim();
+
+    saveNotes();
+    renderNotes();
+
+    closeModal();
 
 }
 
@@ -255,4 +300,8 @@ document.querySelectorAll(".sidebar__item").forEach(button => {
 
     });
 
+});
+
+modalCloseBtn.addEventListener("click", () => {
+    saveModalChanges();
 });
